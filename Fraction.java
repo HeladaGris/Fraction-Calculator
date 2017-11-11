@@ -50,6 +50,41 @@ public class Fraction { // is an object that holds information about a fraction 
     // toDouble() - the result of numerator / denominator
     public double toDouble() {
         return (double)this.numerator / (double)this.denominator;}
+    // add() - returns a new Fraction that is the sum of other and this fractions
+    public Fraction add(Fraction fractionOther) {
+        this.numerator = this.numerator + fractionOther.numerator;
+        this.denominator = this.denominator + fractionOther.denominator;
+        Fraction adding = new Fraction (this.numerator, this.denominator);
+        return adding;
+    }
+    // subtract() - returns a new Fraction that is the difference between the other and this fraction
+    public Fraction subtract(Fraction fractionOther) {
+        this.numerator = this.numerator - fractionOther.numerator;
+        this.denominator = this.denominator - fractionOther.denominator;
+        Fraction subtracting = new Fraction (this.numerator, this.denominator);
+        return subtracting;
+    }
+    // multiply() - returns a new Fraction that is the product of the other and this fraction
+    public Fraction multiply(Fraction fractionOther) {
+        this.numerator = this.numerator * fractionOther.numerator;
+        this.denominator = this.denominator * fractionOther.denominator;
+        Fraction multipling = new Fraction (this.numerator, this.denominator);
+        return multipling;
+    }
+    // divide() - returns a new Fraction that is the division of the other and this fraction, throw an IllegalArgumentException() if the user askes you to divide by 0
+    public Fraction divide(Fraction fractionOther) {
+        this.numerator = this.numerator * fractionOther.denominator;
+        this.denominator = this.denominator * fractionOther.numerator;
+        Fraction dividing = new Fraction (this.numerator, this.denominator);
+        return dividing;
+    }
+    // equals() - must take in an "Object" to properly override the Obect class's equals method, but should ultimately check if two fractions are equal
+    // to do
+    // toLowestTerms() - converts the current fraction to the lowest terms
+    // to do
+    // gcd() - takes in two ints and determines the greatest common divisor of the two ints, should be a static method
+    // to do
 
     // to do
 }
+
