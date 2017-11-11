@@ -12,13 +12,17 @@ public class FractionCalculator {
     public static void main (String[] args) {
         Scanner input = new Scanner(System.in);
 
-        Fraction test1 = new Fraction (-1, 2);
+        Fraction test1 = new Fraction (4, 4);
+        Fraction test2 = new Fraction (1, 1);
 
         //System.out.println(test1.numerator + " " + test1.denominator);
         System.out.println(test1.getNumerator());
         System.out.println(test1.getDenominator());
         System.out.println(test1.toString());
         System.out.println(test1.toDouble());
-
+        //System.out.println(test1.add(test2));
+        //System.out.println(test1.subtract(test2));
+        //System.out.println(test1.multiply(test2));
+        System.out.println(test1.divide(test2));
     }
 }
