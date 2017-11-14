@@ -79,12 +79,29 @@ public class Fraction { // is an object that holds information about a fraction 
         return dividing;
     }
     // equals() - must take in an "Object" to properly override the Obect class's equals method, but should ultimately check if two fractions are equal
-    // to do
+    public boolean equals(Fraction fractionOther) {
+        if(this.toDouble() == fractionOther.toDouble()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     // toLowestTerms() - converts the current fraction to the lowest terms
-    // to do
+    public Fraction toLowestTerms() {
+        int gcd = gcd(this.numerator, this.denominator);
+        this.numerator = this.numerator / gcd;
+        this.denominator = this.denominator / gcd;
+        return new Fraction(this.numerator, this.denominator);
+        }
     // gcd() - takes in two ints and determines the greatest common divisor of the two ints, should be a static method
-    // to do
-
-    // to do
+    // greatest common divisor - наибольший общий делитель
+    // реализовано при помощи Алгоритма Евклида (Euclidean Algorithm)
+    public static int gcd(int nmrtr, int dnmntr) {
+        while (dnmntr != 0) {
+            int storage = nmrtr % dnmntr;
+            nmrtr = dnmntr;
+            dnmntr = storage;
+        }
+        return nmrtr;
+    }
 }
-
