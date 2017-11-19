@@ -50,6 +50,58 @@ public class Fraction { // is an object that holds information about a fraction 
     // toDouble() - the result of numerator / denominator
     public double toDouble() {
         return (double)this.numerator / (double)this.denominator;}
-
-    // to do
+    // add() - returns a new Fraction that is the sum of other and this fractions
+    public Fraction add(Fraction fractionOther) {
+        this.numerator = this.numerator + fractionOther.numerator;
+        this.denominator = this.denominator + fractionOther.denominator;
+        Fraction adding = new Fraction (this.numerator, this.denominator);
+        return adding;
+    }
+    // subtract() - returns a new Fraction that is the difference between the other and this fraction
+    public Fraction subtract(Fraction fractionOther) {
+        this.numerator = this.numerator - fractionOther.numerator;
+        this.denominator = this.denominator - fractionOther.denominator;
+        Fraction subtracting = new Fraction (this.numerator, this.denominator);
+        return subtracting;
+    }
+    // multiply() - returns a new Fraction that is the product of the other and this fraction
+    public Fraction multiply(Fraction fractionOther) {
+        this.numerator = this.numerator * fractionOther.numerator;
+        this.denominator = this.denominator * fractionOther.denominator;
+        Fraction multipling = new Fraction (this.numerator, this.denominator);
+        return multipling;
+    }
+    // divide() - returns a new Fraction that is the division of the other and this fraction, throw an IllegalArgumentException() if the user askes you to divide by 0
+    public Fraction divide(Fraction fractionOther) {
+        this.numerator = this.numerator * fractionOther.denominator;
+        this.denominator = this.denominator * fractionOther.numerator;
+        Fraction dividing = new Fraction (this.numerator, this.denominator);
+        return dividing;
+    }
+    // equals() - must take in an "Object" to properly override the Obect class's equals method, but should ultimately check if two fractions are equal
+    public boolean equals(Fraction fractionOther) {
+        if(this.toDouble() == fractionOther.toDouble()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    // toLowestTerms() - converts the current fraction to the lowest terms
+    public Fraction toLowestTerms() {
+        int gcd = gcd(this.numerator, this.denominator);
+        this.numerator = this.numerator / gcd;
+        this.denominator = this.denominator / gcd;
+        return new Fraction(this.numerator, this.denominator);
+        }
+    // gcd() - takes in two ints and determines the greatest common divisor of the two ints, should be a static method
+    // greatest common divisor - наибольший общий делитель
+    // реализовано при помощи Алгоритма Евклида (Euclidean Algorithm)
+    public static int gcd(int nmrtr, int dnmntr) {
+        while (dnmntr != 0) {
+            int storage = nmrtr % dnmntr;
+            nmrtr = dnmntr;
+            dnmntr = storage;
+        }
+        return nmrtr;
+    }
 }
