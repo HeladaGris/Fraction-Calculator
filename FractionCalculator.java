@@ -10,6 +10,9 @@ import java.util.Scanner;
 // It will run until the user tells it to quit
 public class FractionCalculator {
     public static void main (String[] args) {
+        String userInput = "";
+        boolean operationEquals;
+
         Scanner input1 = new Scanner(System.in);
         Scanner input2 = new Scanner(System.in);
 
@@ -18,21 +21,54 @@ public class FractionCalculator {
         System.out.println("Please enter your fractions in the form a/b, where a and b are integers.");
         System.out.println("-------------------------------------------------------------------------------");
 
+        userInput = getOperation(userInput);
+        while (userInput.equalsIgnoreCase("Q") != true) {
+            System.out.print("Please enter a fraction (a/b) or integer (a): ");
+            String userInput1 = input1.nextLine();
+            Fraction first = getFraction(userInput1);
+
+            System.out.print("Please enter a fraction (a/b) or integer (a): ");
+            String userInput2 = input2.nextLine();
+            Fraction second = getFraction(userInput2);
+
+            if (userInput.equals("+")) {
+                System.out.println(first.getNumerator() + "/" + first.getDenominator() + " " + userInput + " " + second.getNumerator() + "/" + second.getDenominator() + " = " + (first.add(second)).toLowestTerms());
+            }
+            if (userInput.equals("-")) {
+                System.out.println(first.getNumerator() + "/" + first.getDenominator() + " " + userInput + " " + second.getNumerator() + "/" + second.getDenominator() + " = " + (first.subtract(second)).toLowestTerms());
+            }
+            if (userInput.equals("/")) {
+                System.out.println(first.getNumerator() + "/" + first.getDenominator() + " " + userInput + " " + second.getNumerator() + "/" + second.getDenominator() + " = " + (first.divide(second)).toLowestTerms());
+            }
+            if (userInput.equals("*")) {
+                System.out.println(first.getNumerator() + "/" + first.getDenominator() + " " + userInput + " " + second.getNumerator() + "/" + second.getDenominator() + " = " + (first.multiply(second)).toLowestTerms());
+            }
+            if (userInput.equals("=")) {
+                operationEquals = first.equals(second);
+                System.out.println(first.getNumerator() + "/" + first.getDenominator() + " " + userInput + " " + second.getNumerator() + "/" + second.getDenominator() + " is " + operationEquals);
+            }
+            System.out.println("-------------------------------------------------------------------------------");
+            userInput = getOperation(userInput);
+        }
+
         //System.out.println(isNumber("01 23456789"));
 
-        /*System.out.print("Please enter an operation (+, -, /, *, = or Q to quit): ");
-        String userInput1 = input1.nextLine();
-        String mathematicalOperation = getOperation(userInput1);*/
-
-        System.out.print("Please enter a fraction (a/b) or integer (a): ");
+        /*System.out.print("Please enter a fraction (a/b) or integer (a): ");
         String userInput2 = input1.nextLine();
-        boolean validFraction = validFraction(userInput2);
-        System.out.println("validFraction is: " + validFraction);
-        if (validFraction == true) {
+        Fraction test4 = getFraction(userInput2);
+        System.out.println(test4.getNumerator());
+        System.out.println(test4.getDenominator());*/
+
+        //boolean validFraction = validFraction(userInput2);
+        //System.out.println("validFraction is: " + validFraction);
+
+        /*if (validFraction == true) {
             Fraction test4 = getFraction(userInput2);
             System.out.println(test4.getNumerator());
             System.out.println(test4.getDenominator());
-        }
+        } else {
+            while (validFraction == false);
+        }*/
 
         //Fraction test1 = new Fraction (4, 8);
         //Fraction test2 = new Fraction (2, 4);
@@ -56,6 +92,8 @@ public class FractionCalculator {
     * If the user enters anything except “+”, “-“, “/”, “*”, “=”, “q”, or “Q” it should re-prompt them until there is valid input */
     public static String getOperation(String uInpt) {
         Scanner input = new Scanner(System.in);
+        System.out.print("Please enter an operation (+, -, /, *, = or Q to quit): ");
+        uInpt = input.nextLine();
 
         while (!uInpt.equals("+") && !uInpt.equals("-") && !uInpt.equals("/") && !uInpt.equals("*") && !uInpt.equals("=") && !uInpt.equals("Q") && !uInpt.equals("q")) {
             System.out.print("Invalid input (+, -, /, *, = or Q to quit): ");
@@ -65,49 +103,41 @@ public class FractionCalculator {
     }
     // validFraction() - returns true if the parameter is in the form "a/b" where a is any int and b is any positive int
     public static boolean validFraction(String uInpt) {
-        boolean validFraction = false;
-        Scanner input = new Scanner(System.in);
-
-        while (validFraction == false) {
-            /* The first character may or may not be a ‘-‘ character.
-            * If a negative shows up anywhere else, then it is not a valid fraction. */
-            if (!uInpt.contains("/-")) {
-                uInpt = uInpt.replaceAll("-", ""); // It may be helpful to remove the ‘-‘ character if there is one
-                //System.out.println(uInpt);
-                if (uInpt.contains("/")) {
-                    // If there is a ‘/’ character, then it may be helpful to create substrings for the numerator and denominator
-                    String subNumerator = uInpt.substring(0, uInpt.indexOf("/"));
-                    //System.out.println(subNumerator);
-                    String subDenominator = uInpt.substring(uInpt.indexOf("/") + 1, uInpt.length());;
-                    //System.out.println(subDenominator);
-                    // Both substrings must be non-empty, The denominator cannot be “0”
-                    if (subNumerator.equals("") || subDenominator.equals("") || subDenominator.equals("0")) {
-                        System.out.print("Invalid fraction. Please enter (a/b) or (a), where a and b are integers and b is not zero: ");
-                        uInpt = input.nextLine();
-                    } else {
-                        // Both must be entirely made of numbers
-                        if (isNumber(subNumerator) == true && isNumber(subDenominator) == true) {
-                            validFraction = true;
-                        } else {
-                            System.out.print("Invalid fraction. Please enter (a/b) or (a), where a and b are integers and b is not zero: ");
-                            uInpt = input.nextLine();
-                        }
-                    }
+        /* The first character may or may not be a ‘-‘ character.
+        * If a negative shows up anywhere else, then it is not a valid fraction. */
+        if (!uInpt.contains("/-")) {
+            uInpt = uInpt.replaceAll("-", ""); // It may be helpful to remove the ‘-‘ character if there is one
+            //System.out.println(uInpt);
+            if (uInpt.contains("/")) {
+                // If there is a ‘/’ character, then it may be helpful to create substrings for the numerator and denominator
+                String subNumerator = uInpt.substring(0, uInpt.indexOf("/"));
+                //System.out.println(subNumerator);
+                String subDenominator = uInpt.substring(uInpt.indexOf("/") + 1, uInpt.length());;
+                //System.out.println(subDenominator);
+                // Both substrings must be non-empty, The denominator cannot be “0”
+                if (subNumerator.equals("") || subDenominator.equals("") || subDenominator.equals("0")) {
+                    return false;
                 } else {
-                    // If there is no ‘/’ character, then every character in the string must be a number (if you removed the ‘-‘ sign)
-                    if (isNumber(uInpt) == true) {
-                        validFraction = true;
+                    // Both must be entirely made of numbers
+                    if (isNumber(subNumerator) == true && isNumber(subDenominator) == true) {
+                        return true;
                     } else {
-                        System.out.print("Invalid fraction. Please enter (a/b) or (a), where a and b are integers and b is not zero: ");
-                        uInpt = input.nextLine();
+                        return false;
                     }
                 }
             } else {
-                System.out.print("Invalid fraction. Please enter (a/b) or (a), where a and b are integers and b is not zero: ");
-                uInpt = input.nextLine();
+                // If there is no ‘/’ character, then every character in the string must be a number (if you removed the ‘-‘ sign)
+                if (uInpt.equals("")) {
+                    return false;
+                } else {
+                    if (isNumber(uInpt) == true) {
+                        return true;
+                    } else {
+                        return  false;
+                    }
+                }
             }
-        }
-        return true;
+        } else {return false;}
     }
     /* It may be useful to create a helper method isNumber() that takes a String as input and returns true if -
     * every character in the String is a number 0-9 and false otherwise.
@@ -125,6 +155,13 @@ public class FractionCalculator {
     /* getFraction() - It prompts the user for a String that is a validFraction.
     * If they enter any thing that is not a valid Fraction, it should re-prompt them until it is valid */
     public static Fraction getFraction(String uInpt) {
+        Scanner input = new Scanner(System.in);
+
+        while (validFraction(uInpt) == false) {
+            System.out.print("Invalid fraction. Please enter (a/b) or (a), where a and b are integers and b is not zero: ");
+            uInpt = input.nextLine();
+            validFraction(uInpt);
+        }
         if (uInpt.contains("/")) {
             // If there is a ‘/’ character, then it may be helpful to create substrings for the numerator and denominator
             String subNumerator = uInpt.substring(0, uInpt.indexOf("/"));
