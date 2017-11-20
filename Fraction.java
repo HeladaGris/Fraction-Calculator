@@ -52,15 +52,15 @@ public class Fraction { // is an object that holds information about a fraction 
         return (double)this.numerator / (double)this.denominator;}
     // add() - returns a new Fraction that is the sum of other and this fractions
     public Fraction add(Fraction fractionOther) {
-        this.numerator = this.numerator + fractionOther.numerator;
-        this.denominator = this.denominator + fractionOther.denominator;
+        this.numerator = (((this.denominator * fractionOther.denominator))/this.denominator * this.numerator) + ((this.denominator * fractionOther.denominator)/fractionOther.denominator * fractionOther.numerator);
+        this.denominator = this.denominator * fractionOther.denominator;
         Fraction adding = new Fraction (this.numerator, this.denominator);
         return adding;
     }
     // subtract() - returns a new Fraction that is the difference between the other and this fraction
     public Fraction subtract(Fraction fractionOther) {
-        this.numerator = this.numerator - fractionOther.numerator;
-        this.denominator = this.denominator - fractionOther.denominator;
+        this.numerator = (((this.denominator * fractionOther.denominator))/this.denominator * this.numerator) - ((this.denominator * fractionOther.denominator)/fractionOther.denominator * fractionOther.numerator);
+        this.denominator = this.denominator * fractionOther.denominator;
         Fraction subtracting = new Fraction (this.numerator, this.denominator);
         return subtracting;
     }
