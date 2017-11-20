@@ -28,6 +28,11 @@ public class FractionCalculator {
         String userInput2 = input1.nextLine();
         boolean validFraction = validFraction(userInput2);
         System.out.println("validFraction is: " + validFraction);
+        if (validFraction == true) {
+            Fraction test4 = getFraction(userInput2);
+            System.out.println(test4.getNumerator());
+            System.out.println(test4.getDenominator());
+        }
 
         //Fraction test1 = new Fraction (4, 8);
         //Fraction test2 = new Fraction (2, 4);
@@ -119,5 +124,20 @@ public class FractionCalculator {
     }
     /* getFraction() - It prompts the user for a String that is a validFraction.
     * If they enter any thing that is not a valid Fraction, it should re-prompt them until it is valid */
-    public static Fraction getFraction(String uInpt) {return new Fraction();}
+    public static Fraction getFraction(String uInpt) {
+        if (uInpt.contains("/")) {
+            // If there is a ‘/’ character, then it may be helpful to create substrings for the numerator and denominator
+            String subNumerator = uInpt.substring(0, uInpt.indexOf("/"));
+            String subDenominator = uInpt.substring(uInpt.indexOf("/") + 1, uInpt.length());
+            int parseNumerator = Integer.parseInt(subNumerator);
+            int parseDenominator = Integer.parseInt(subDenominator);
+            return new Fraction(parseNumerator, parseDenominator);
+        } else {
+            // If there is no ‘/’ character, then every character in the string must be a number (if you removed the ‘-‘ sign)
+            String subNumerator = uInpt;
+            int parseNumerator = Integer.parseInt(subNumerator);
+            int parseDenominator = 1;
+            return new Fraction(parseNumerator, parseDenominator);
+        }
+    }
 }
